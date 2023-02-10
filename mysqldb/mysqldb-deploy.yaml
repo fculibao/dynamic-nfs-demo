@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mysqldb-server
-          image: fculibao/m2lab-db:V1
+          image: fculibao/mysqldb-arm64v8:latest
           volumeMounts:
             - name: mysqldb-pv
               mountPath: /var/lib/mysql

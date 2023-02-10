@@ -12,5 +12,5 @@ spec:
     - ReadWriteMany
   nfs:
     server: 172.16.141.129
-    path: /mnt/ssd-disk/mysqldb-data
+    path: /mnt/nfs-data/mysqldb-data
     
