@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: iom-nfs-client-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: iom-nfs-client-provisioner
+  template:
+    metadata:
+      labels:
+        app: iom-nfs-client-provisioner
+    spec:
+      serviceAccountName: nfs-client-provisioner
+      containers:
+        - name: iom-nfs-client-provisioner
+          image: nginx
+          volumeMounts:
+            - name: nfs-client-root
+              mountPath: /iom-persistentvolumes
+          env:
+            - name: PROVISIONER_NAME
+              value: iom.com/nfs
+            - name: NFS_SERVER
+              value: 192.168.1.76
+            - name: NFS_PATH
+              value: /mnt/ssd-disk/iom/
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            server: 192.168.1.76
+            path: /mnt/ssd-disk/iom/
